@@ -43,25 +43,38 @@
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="1">
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="x1l">
+      <widget class="QLabel" name="x0l">
        <property name="text">
-        <string>x1</string>
+        <string>x0</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="x1"/>
+      <widget class="QLineEdit" name="x0"/>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="y1l">
+      <widget class="QLabel" name="y0l">
        <property name="text">
-        <string>y1</string>
+        <string>y0</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="y1"/>
+      <widget class="QLineEdit" name="y0"/>
      </item>
      <item row="3" column="1">
       <spacer name="verticalSpacer_2">
@@ -77,24 +90,24 @@
       </spacer>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="x2l">
+      <widget class="QLabel" name="x1l">
        <property name="text">
-        <string>x2</string>
+        <string>x1</string>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QLineEdit" name="x2"/>
+      <widget class="QLineEdit" name="x1"/>
      </item>
      <item row="5" column="0">
-      <widget class="QLabel" name="y2l">
+      <widget class="QLabel" name="y1l">
        <property name="text">
-        <string>y2</string>
+        <string>y1</string>
        </property>
       </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QLineEdit" name="y2"/>
+      <widget class="QLineEdit" name="y1"/>
      </item>
      <item row="6" column="1">
       <spacer name="verticalSpacer_4">
@@ -110,24 +123,24 @@
       </spacer>
      </item>
      <item row="7" column="0">
-      <widget class="QLabel" name="x3l">
+      <widget class="QLabel" name="x2l">
        <property name="text">
-        <string>x3</string>
+        <string>x2</string>
        </property>
       </widget>
      </item>
      <item row="7" column="1">
-      <widget class="QLineEdit" name="x3"/>
+      <widget class="QLineEdit" name="x2"/>
      </item>
      <item row="8" column="0">
-      <widget class="QLabel" name="y3l">
+      <widget class="QLabel" name="y2l">
        <property name="text">
-        <string>y3</string>
+        <string>y2</string>
        </property>
       </widget>
      </item>
      <item row="8" column="1">
-      <widget class="QLineEdit" name="y3"/>
+      <widget class="QLineEdit" name="y2"/>
      </item>
      <item row="9" column="1">
       <spacer name="verticalSpacer_6">
@@ -143,24 +156,21 @@
       </spacer>
      </item>
      <item row="10" column="0">
-      <widget class="QLabel" name="x4l">
+      <widget class="QLabel" name="x3l">
        <property name="text">
-        <string>x4</string>
+        <string>x3</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="1">
-      <widget class="QLineEdit" name="x4"/>
-     </item>
      <item row="11" column="0">
-      <widget class="QLabel" name="y4l">
+      <widget class="QLabel" name="y3l">
        <property name="text">
-        <string>y4</string>
+        <string>y3</string>
        </property>
       </widget>
      </item>
      <item row="11" column="1">
-      <widget class="QLineEdit" name="y6"/>
+      <widget class="QLineEdit" name="y3"/>
      </item>
      <item row="12" column="1">
       <spacer name="verticalSpacer">
@@ -175,38 +185,8 @@
        </property>
       </spacer>
      </item>
-     <item row="13" column="0">
-      <widget class="QLabel" name="d1l">
-       <property name="text">
-        <string>d1</string>
-       </property>
-      </widget>
-     </item>
-     <item row="13" column="1">
-      <widget class="QLineEdit" name="d1"/>
-     </item>
-     <item row="14" column="0">
-      <widget class="QLabel" name="d2l">
-       <property name="text">
-        <string>d2</string>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="1">
-      <widget class="QLineEdit" name="d2"/>
-     </item>
-     <item row="0" column="1">
-      <spacer name="verticalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
+     <item row="10" column="1">
+      <widget class="QLineEdit" name="x3"/>
      </item>
     </layout>
    </widget>
@@ -221,14 +201,14 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="Build">
        <property name="text">
         <string>Build</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="Anim">
        <property name="text">
         <string>Anim</string>
        </property>

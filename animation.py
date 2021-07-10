@@ -1,19 +1,19 @@
-from PySide6 import QtWidgets, QtCore, QtGui
+import bezier
+import numpy as np
+from celluloid import Camera
+from matplotlib import pyplot as plt
+
+nodes = np.asfortranarray([
+    [0.0, 0.625, 2.0, 4.2],
+    [0.0, 0.5  , 0.7, -1],
+])
+curve = bezier.Curve(nodes, degree=3)
+fig = plt.figure()
+camera = Camera(fig)
 
 
-class Graph(QtWidgets.QLabel):
-    def __init__(self):
-        super(Graph, self).__init__()
-
-        trashGif = open('animation.gif', 'rb').read()
-        self.gifByteArray = QtCore.QByteArray(trashGif)
-        self.gifBuffer = QtCore.QBuffer(self.gifByteArray)
-        self.movie = QtGui.QMovie()
-        self.movie.setFormat('GIF')
-        self.movie.setDevice(self.gifBuffer)
-        self.movie.setCacheMode(QtGui.QMovie.CacheAll)
-        self.movie.setSpeed(100)
-        self.setMovie(self.movie)
-        self.movie.jumpToFrame(0)
-
-
+res = curve.evaluate_multi(np.linspace(0, 1, 1000))
+plt.plot(res[0], res[1], color='#ff0000')
+plt.scatter(nodes[0], nodes[1], color='#0000FF', marker='o')
+    #plt.scatter(X[i * 10, 0], Y[i * 10, 0], color='#00ff00', marker='o', s=200)
+plt.show()

@@ -1,9 +1,12 @@
 import sys
 
 # PySide6 (PyQt 5.0) used to GUI
+import numpy as np
 from PySide6 import QtWidgets
-from PySide6.QtGui import QIcon, QMovie
+from PySide6.QtGui import QIcon, QMovie, QPixmap
+from matplotlib import pyplot as plt
 
+from graph import new_plot
 from untitled import Ui_MainWindow
 
 
@@ -11,16 +14,31 @@ from untitled import Ui_MainWindow
 class MyWidget(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()  # for init all staff from QMainWindow
-        self.setupUi(self)  # for beuticode UI part forwarded to another file
-                            # so this line creates all items from revealed UI file
+        self.setupUi(self)  # for beauticode UI part forwarded to another file
+        # so this line creates all items from revealed UI file
 
-        self.setWindowIcon(QIcon('icon.png')) # changing app icon
+        self.setWindowIcon(QIcon('icon.png'))  # changing app icon
 
+
+        self.Anim.clicked.connect(self.anim)
+        self.Build.clicked.connect(self.build)
+        plt.plot()
+        plt.savefig('yo.png')
+        self.graph.setPixmap(QPixmap('yo.png'))
+
+    def build(self):
         movie = QMovie('animation.gif')
         movie.setCacheMode(QMovie.CacheNone)
         movie.frameChanged.connect(self.stop)
         self.graph.setMovie(movie)
-        self.pushButton_2.clicked.connect(self.anim)
+        if all((self.x0.text(), self.y0.text(), self.x1.text(), self.y1.text(), self.x2.text(), self.y2.text(),self.x3.text(), self.y3.text())):
+            P = np.array([[self.x0.text(), self.y0.text()],
+                          [self.x1.text(), self.y1.text()],
+                          [self.x2.text(), self.y2.text()],
+                          [self.x3.text(), self.y3.text()]], dtype=np.dtype(float))
+            new_plot(P)
+            self.graph.movie().start()
+            self.graph.movie().stop()
 
     def anim(self):
         self.graph.movie().start()

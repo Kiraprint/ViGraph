@@ -1,41 +1,38 @@
-from matplotlib import pyplot as plt
-from celluloid import Camera
 import numpy as np
+from celluloid import Camera
+from matplotlib import pyplot as plt
 
-TAU = np.linspace(0, 1, 1000) # number of points in graph
+TAU = np.linspace(0, 1, 1000)  # 1000 of points from [0; 1000]
 
 
-def Bezier(t, P): # P - array of 3 points like np.array([[0, 0],[2, 4],[5, 3]])
-
-    # Bezier Matrix:
-    Mb = np.matrix([
-        [1, -2, 1],
-        [-2, 2, 0],
-        [1, 0, 0],
+def bezi(P, t):
+    MB = np.matrix([
+        [-1, 3, -3, 1],
+        [3, -6, 3, 0],
+        [-3, 3, 0, 0],
+        [1, 0, 0, 0]
     ])
-    # T matrix
-    xx, yy = np.meshgrid(np.arange(2, -1, -1), t)
+    xx, yy = np.meshgrid(np.arange(3, -1, -1), t)  # powers of t
     xx = np.matrix(xx)
     yy = np.matrix(yy)
-    T_mat = np.power(yy, xx)
-    B = T_mat * Mb * P
-    return B
+    T_mat = np.power(yy, xx)  # yy in power of xx
+    B = T_mat * MB * P  # get coords
+    return B  # returns coords
 
-def new_plot(P):
 
+def new_plot(P):  # P - nparray of points that must init like np.array([[1,0], [2, 3], [3, 5], [4, 1]])
     fig = plt.figure()
-    plt.xlim(-2, 6)
-    plt.ylim(-2, 6)
-    X, Y = Bezier(TAU, P)[:, 0], Bezier(TAU, P)[:, 1]
-    camera = Camera(fig)
+    bezik = bezi(P, TAU)  # create curve and return values in all points of TAU
+    X, Y = bezik[:, 0], bezik[:, 1]  # as result get X and Y in 1 array
+    camera = Camera(fig)  # creating camera for animation
 
-    for i in range(100):
-        coord = Bezier(i / 100, P)
+    for i in range(100):  # 100 cadres of animation, marker = which line used for anim
+
         plt.plot(X, Y, color='#ff0000')
-        plt.scatter(P[:, 0], P[:, 1], color='#0000FF', marker='o')
-        plt.scatter(coord[0, 0], coord[0, 1], color='#00ff00', marker='o', s=100)
-        camera.snap()
+        plt.scatter(P[:, 0], P[:, 1], color='#000000', marker='o')
+        plt.scatter(X[i * 10, 0], Y[i * 10, 0], color='#0000ff',marker='s', s=100)
+        camera.snap()  # +cadre
 
-    animation = camera.animate(interval=20, repeat=True,
-                               repeat_delay=0)
-    animation.save('animation.gif', writer='pillow', fps=24)
+    animation = camera.animate(interval=20, repeat=True, repeat_delay=0)  # getting res of animation
+    animation.save('animation.gif', writer='pillow', fps=24)  # save res as .gif
+
