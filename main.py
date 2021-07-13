@@ -1,14 +1,16 @@
 import sys
 
 # PySide6 (PyQt 5.0) used to GUI
+import matplotlib
 import numpy as np
 from PySide6 import QtWidgets
 from PySide6.QtGui import QIcon, QMovie, QPixmap
-from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt  # adding start plot
 
-from graph import new_plot
+from graph import new_plot  # main task of app
 from untitled import Ui_MainWindow
 
+matplotlib.rcParams['figure.dpi']=100
 
 # Main window of my app
 class MyWidget(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -19,31 +21,34 @@ class MyWidget(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.setWindowIcon(QIcon('icon.png'))  # changing app icon
 
-
-        self.Anim.clicked.connect(self.anim)
+        self.Anim.clicked.connect(self.anim)  # connecting buttons with its functions
         self.Build.clicked.connect(self.build)
-        plt.plot()
-        plt.savefig('yo.png')
-        self.graph.setPixmap(QPixmap('yo.png'))
 
-    def build(self):
-        movie = QMovie('animation.gif')
-        movie.setCacheMode(QMovie.CacheNone)
-        movie.frameChanged.connect(self.stop)
-        self.graph.setMovie(movie)
-        if all((self.x0.text(), self.y0.text(), self.x1.text(), self.y1.text(), self.x2.text(), self.y2.text(),self.x3.text(), self.y3.text())):
+        plt.plot()  # creating start plot
+        plt.savefig('yo.png')  # saving it
+        self.graph.setPixmap(QPixmap('yo.png'))  # and we can see it in the app
+
+    def build(self):  # builds our graph with animation
+
+        if all((self.x0.text(), self.y0.text(), self.x1.text(), self.y1.text(),
+                self.x2.text(), self.y2.text(), self.x3.text(), self.y3.text())):
             P = np.array([[self.x0.text(), self.y0.text()],
                           [self.x1.text(), self.y1.text()],
                           [self.x2.text(), self.y2.text()],
                           [self.x3.text(), self.y3.text()]], dtype=np.dtype(float))
-            new_plot(P)
-            self.graph.movie().start()
+            new_plot(P)  # creating graph in .gif with new data
+            movie = QMovie('animation.gif')  # every click recreates new gif
+            # with new graph and ready for playing animation
+            movie.setCacheMode(QMovie.CacheNone)
+            movie.frameChanged.connect(self.stop)  # bcs of this gif doesn't loop
+            self.graph.setMovie(movie)  # add our gif to the label
+            self.graph.movie().start()  # starts and stops gif: we need only to see 1st cadre
             self.graph.movie().stop()
 
-    def anim(self):
+    def anim(self):  # start playing animation
         self.graph.movie().start()
 
-    def stop(self):
+    def stop(self):  # this stops our gif at the first/zero loop
         movie = self.graph.movie()
         if movie.currentFrameNumber() == movie.frameCount() - 1:
             movie.stop()
