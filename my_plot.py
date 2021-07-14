@@ -16,3 +16,5 @@ r = np.sqrt(np.square(X) + np.square(Y))
 plt.plot(phi, r)
 
 plt.show()
+from PyQt6.QtWidgets import QStyleFactory
+print(QStyleFactory.keys())
